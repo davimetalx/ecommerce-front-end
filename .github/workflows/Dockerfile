@@ -10,6 +10,13 @@ COPY . .
 RUN npm run build
 
 # Estágio de produção
-FROM nginx:alpine
+FROM node:18
 
-COPY --from=build /app/dist /usr/share/nginx/html
+WORKDIR /app
+
+COPY --from=build /app/dist ./dist
+COPY package.json package-lock.json ./
+RUN npm install --only=production
+
+EXPOSE 3000
+CMD ["npm", "start"]
