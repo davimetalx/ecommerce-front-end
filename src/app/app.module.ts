@@ -10,15 +10,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HeaderComponent } from './layout/header/header.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
 import { FooterComponent } from './layout/footer/footer.component';
 import { MenuComponent } from './layout/menu/menu.component';
+import { ListProductComponent } from './layout/product/list-product/list-product.component';
+import { ProductService } from './layout/product/product.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    MenuComponent
+    MenuComponent,
+    ListProductComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +33,11 @@ import { MenuComponent } from './layout/menu/menu.component';
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
