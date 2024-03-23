@@ -1,0 +1,35 @@
+name: Deploy Ecommerce Front-End
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+      - uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+      - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular app
+        run: npm run build
+
+      - name: Login Docker Hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+
+      - name: Build Docker Image
+        run: docker build -t davinascimentodasilva10/ecommerce-front-end .
+
+      - name: Push Image Docker
+        run: docker push davinascimentodasilva10/ecommerce-front-end
